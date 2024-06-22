@@ -2,7 +2,7 @@ provider "aws" {
   region = "ap-southeast-1"
 }
 
-resource "aws_instance" "strapi_instance" {
+data "aws_instance" "existing_instance" {
   instance_id = "i-071170ba4826f6150"  // Specify the existing instance ID
 
   provisioner "remote-exec" {
