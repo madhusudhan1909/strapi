@@ -3,33 +3,28 @@ provider "aws" {
 }
 
 resource "aws_instance" "strapi_instance" {
-  ami                    = "ami-003c463c8207b4dfa"  // Update with your Ubuntu 20.04 AMI ID
-  instance_type          = "t2.medium"
-  subnet_id              = "subnet-0ba5354c77b6d001f"  // Update with your subnet ID
-  key_name               = "TASK2"  // Replace with your key pair name
-  vpc_security_group_ids = ["sg-0795d88eba4e1b125"]  // Update with your security group ID
-
-  tags = {
-    Name = "TASK2-STRAPI"
-  }
+  instance_id = "i-071170ba4826f6150"  // Specify the existing instance ID
 
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y npm",
       "sudo npm install pm2 -g",
-      "git clone -b madhu https://github.com/madhusudhan1909/strapi.git /home/ubuntu/strapi",  // Clone your repository to /home/ubuntu/strapi
-      "cd /home/ubuntu/strapi/examples/getstarted",  // Navigate to the getstarted directory
-      "npm install",  // Install dependencies
-      "pm2 start npm --name 'strapi' -- start"  // Start Strapi application using PM2
+      "cd /home/ubuntu/strapi/examples/getstarted",
+      "npm install",
+      "pm2 start npm --name 'strapi' -- start"
     ]
 
     connection {
       type        = "ssh"
       user        = "ubuntu"
       private_key = var.private_key
-      host        = "13.229.80.114"
+      host        = "13.229.80.114"  // Update with your existing instance's public IP
     }
+  }
+
+  tags = {
+    Name = "TASK2-STRAPI"
   }
 }
 
