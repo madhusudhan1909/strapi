@@ -21,6 +21,19 @@ resource "aws_instance" "strapi_instance" {
     host        = "13.229.80.114"
   }
 }
+provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y npm",
+      "sudo npm install pm2 -g"
+      "git clone -b madhu https://github.com/madhusudhan1909/strapi.git /home/ubuntu/strapi",
+      "cd /home/ubuntu/strapi/examples/getstarted",
+      "npm install",
+      "pm2 start npm --name 'strapi' -- start"
+     
+    ]
+  }
+}
 
 output "instance_public_ip" {
   value = aws_instance.strapi_instance.public_ip
