@@ -10,7 +10,7 @@ resource "aws_instance" "strapi_instance" {
   vpc_security_group_ids = ["sg-0795d88eba4e1b125"]  // Update with your security group ID
 
   tags = {
-    Name = "srv-strapi"
+    Name = "TASK2-STRAPI"
   }
 
   provisioner "remote-exec" {
