@@ -2,6 +2,12 @@ provider "aws" {
   region = "ap-southeast-1"
 }
 
+variable "private_key" {
+  description = "The private key for SSH access"
+  type        = string
+  sensitive   = true
+}
+
 data "aws_instance" "existing_instance" {
   instance_id = "i-071170ba4826f6150"  // Specify the existing instance ID
 }
