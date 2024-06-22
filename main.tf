@@ -25,7 +25,6 @@ resource "null_resource" "provision_commands" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = var.private_key
       host        = "13.229.80.114"  // Update with your existing instance's public IP
     }
   }
