@@ -4,7 +4,7 @@ provider "aws" {
 
 data "aws_instance" "existing_instance" {
   instance_id = "i-071170ba4826f6150"  // Specify the existing instance ID
-
+}
 resource "null_resource" "provision_commands" {
   provisioner "remote-exec" {
     inline = [
