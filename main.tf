@@ -26,9 +26,9 @@ resource "null_resource" "provision_commands" {
 }
 
 output "instance_public_ip" {
-  value = aws_instance.strapi_instance.public_ip
+value = "13.229.80.114"
 }
 
 output "instance_private_ip" {
-  value = aws_instance.strapi_instance.private_ip
+value = "172.31.20.95"
 }
