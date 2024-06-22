@@ -2,7 +2,6 @@ provider "aws" {
   region = "ap-southeast-1"
 }
 
-# Define the EC2 instance
 resource "aws_instance" "strapi_instance" {
   ami                    = "ami-003c463c8207b4dfa"  // Update with your Ubuntu 20.04 AMI ID
   instance_type          = "t2.medium"
@@ -14,24 +13,23 @@ resource "aws_instance" "strapi_instance" {
     Name = "srv-strapi"
   }
 
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = file("/home/ubuntu/TASK2.pem")  // Update with correct path to your .pem file
-    host        = "13.229.80.114"
-  }
-}
-provisioner "remote-exec" {
+  provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y npm",
-      "sudo npm install pm2 -g"
-      "git clone -b madhu https://github.com/madhusudhan1909/strapi.git /home/ubuntu/strapi",
-      "cd /home/ubuntu/strapi/examples/getstarted",
-      "npm install",
-      "pm2 start npm --name 'strapi' -- start"
-     
+      "sudo npm install pm2 -g",
+      "git clone -b madhu https://github.com/madhusudhan1909/strapi.git /home/ubuntu/strapi",  // Clone your repository to /home/ubuntu/strapi
+      "cd /home/ubuntu/strapi/examples/getstarted",  // Navigate to the getstarted directory
+      "npm install",  // Install dependencies
+      "pm2 start npm --name 'strapi' -- start"  // Start Strapi application using PM2
     ]
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("/home/ubuntu/TASK2.pem")  // Update with correct path to your .pem file
+      host        = aws_instance.strapi_instance.public_ip  // Use the public IP dynamically
+    }
   }
 }
 
