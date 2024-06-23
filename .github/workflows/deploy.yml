@@ -22,6 +22,21 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0  # Adjust to the version you are using
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-1  # Update with your AWS region
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 13.229.80.114 >> ~/.ssh/known_hosts  # Update with your existing instance's public IP
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts  # Ensure GitHub SSH is also configured
+
 
       - name: Initialize Terraform
         run: terraform init
@@ -32,7 +47,6 @@ jobs:
       - name: Apply Terraform changes
         id: apply
         run: terraform apply -auto-approve
-        env:
           # TF_VAR_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           
       - name: Output Terraform Outputs
