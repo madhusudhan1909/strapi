@@ -6,6 +6,8 @@ data "aws_instance" "existing_instance" {
   instance_id = "i-071170ba4826f6150"  // Specify the existing instance ID
 }
 resource "null_resource" "provision_commands" {
+  depends_on = [data.aws_instance.existing_instance]
+
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
