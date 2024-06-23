@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 data "aws_instance" "existing_instance" {
-  instance_id = "i-071170ba4826f6150"  // Specify the existing instance ID
+  instance_id = "i-071170ba4826f6150"
 }
 
 resource "null_resource" "provision_commands" {
@@ -13,23 +13,22 @@ resource "null_resource" "provision_commands" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y npm",
-      "sudo npm install pm2 -g",
-      "npm install"
+      "sudo npm install pm2 -g"
     ]
-   
+
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file("~/.ssh/TASK2.pem")  // Path to your SSH private key
-      host        = aws_instance.existing_instance.public_ip  // Use the public IP of your existing instance
+      private_key = file("~/.ssh/TASK2.pem")  // Update with the path to your SSH private key
+      host        = data.aws_instance.existing_instance.public_ip
     }
   }
 }
 
 output "instance_public_ip" {
-  value = aws_instance.existing_instance.public_ip
+  value = data.aws_instance.existing_instance.public_ip
 }
 
 output "instance_private_ip" {
-  value = aws_instance.existing_instance.private_ip
+  value = data.aws_instance.existing_instance.private_ip
 }
