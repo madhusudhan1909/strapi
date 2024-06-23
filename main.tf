@@ -60,3 +60,4 @@ output "instance_public_ip" {
 output "instance_private_ip" {
   value = "172.31.20.95"
 }
+}
