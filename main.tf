@@ -52,6 +52,7 @@ EOF
     host        = "13.229.80.114"  // Update with your existing instance's public IP
   }
 }
+}
 
 output "instance_public_ip" {
   value = "13.229.80.114"
