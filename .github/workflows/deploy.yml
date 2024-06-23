@@ -33,7 +33,7 @@ jobs:
         id: apply
         run: terraform apply -auto-approve
         env:
-          TF_VAR_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # TF_VAR_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           
       - name: Output Terraform Outputs
         run: |
