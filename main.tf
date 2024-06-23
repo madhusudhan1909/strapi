@@ -19,7 +19,7 @@ resource "null_resource" "provision_commands" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file("~/.ssh/TASK2.pem")  // Update with the path to your SSH private key
+      private_key = file(var.private_key_path)
       host        = data.aws_instance.existing_instance.public_ip
     }
   }
