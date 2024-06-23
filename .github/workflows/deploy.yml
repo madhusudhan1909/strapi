@@ -13,7 +13,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ap-southeast-1
-      TF_VAR_private_key: ${{ secrets.SSH_PRIVATE_KEY }}  # Pass SSH private key to Terraform
+      TF_VAR_ssh_private_key_path: /home/runner/.ssh/id_rsa  # Set the SSH private key path as an environment variable
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
