@@ -20,7 +20,7 @@ resource "null_resource" "provision_commands" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = var.ssh_private_key_path  // Use the GitHub Actions secret for SSH private key
+      private_key = file("/home/runner/.ssh/id_rsa")  # Use the path where the SSH key will be created in the GitHub Actions runner
       host        = "13.229.80.114"  // Update with your existing instance's public IP
   }
 }
