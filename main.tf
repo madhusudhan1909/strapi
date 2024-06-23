@@ -14,22 +14,22 @@ resource "null_resource" "provision_commands" {
       "sudo apt-get update",
       "sudo apt-get install -y npm",
       "sudo npm install pm2 -g",
-      "npm install",
+      "npm install"
     ]
    
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file("/home/runner/.ssh/id_rsa")  # Use the path where the SSH key will be created in the GitHub Actions runner
-      host        = "13.229.80.114"  // Update with your existing instance's public IP
+      private_key = file("~/.ssh/TASK2.pem")  // Path to your SSH private key
+      host        = aws_instance.existing_instance.public_ip  // Use the public IP of your existing instance
+    }
   }
-}
 }
 
 output "instance_public_ip" {
-  value = "13.229.80.114"
+  value = aws_instance.existing_instance.public_ip
 }
 
 output "instance_private_ip" {
-  value = "172.31.20.95"
+  value = aws_instance.existing_instance.private_ip
 }
