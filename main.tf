@@ -20,7 +20,7 @@ resource "null_resource" "provision_commands" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = "/home/ubuntu/sssh/ssh"  # Path to your private key
+      private_key = "/home/ubuntu/TASK2.pem"  # Path to your private key
       host        = "13.229.80.114"  // Update with your existing instance's public IP
   }
 }
