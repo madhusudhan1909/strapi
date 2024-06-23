@@ -34,7 +34,9 @@ jobs:
       - name: Apply Terraform changes
         id: apply
         run: terraform apply -auto-approve
-
+        env:
+          TF_VAR_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          
       - name: Output Terraform Outputs
         run: |
           echo "Instance Public IP: ${{ steps.apply.outputs.instance_public_ip }}"
