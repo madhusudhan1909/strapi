@@ -13,7 +13,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ap-southeast-1
-      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # Reference the SSH private key secret
+      TF_VAR_private_key: ${{ secrets.SSH_PRIVATE_KEY }}  # Pass SSH private key to Terraform
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
